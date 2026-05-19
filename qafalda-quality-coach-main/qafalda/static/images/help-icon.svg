@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Ajuda">
+  <g fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke-width="24" d="M72 332c0-34 14-66 38-90 22-22 34-51 34-82 0-67 55-122 122-122 36 0 69 15 92 39"/>
+    <path stroke-width="24" d="M73 332h32c9 0 16 7 16 16v20c0 9 7 16 16 16h20c9 0 16 7 16 16v24c0 9 7 16 16 16h110c9 0 16-7 16-16v-24"/>
+    <circle cx="338" cy="226" r="124" stroke-width="24"/>
+    <path stroke-width="24" d="M308 196a30 30 0 1 1 48 24c-10 8-18 16-18 30v8"/>
+    <circle cx="338" cy="300" r="10" stroke-width="20" fill="#000"/>
+  </g>
+</svg>

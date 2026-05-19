@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Temas — QAfalda</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <div>
+          <h1>Temas de Qualidade<br />de Teste</h1>
+          <p>Explore os temas que conheço do BSQTB-CTFL 4.0. Clique para ver as explicações!</p>
+        </div>
+        <nav class="nav-links">
+          <a href="/" class="nav-link">Cronograma</a>
+          <a href="/temas" class="nav-link">Temas</a>
+          <a href="/dicas" class="nav-link">Dicas</a>
+          <a href="/quiz" class="nav-link">Quiz</a>
+        </nav>
+      </header>
+      <main>
+        <div class="cards-grid" id="temas-cards-grid">
+          {% for item in knowledge %}
+          <div class="card">
+            <h3>{{ item.topic }}</h3>
+            <p>{{ item.question }}</p>
+            <details>
+              <summary>Ver resposta completa</summary>
+              <p>{{ item.answer }}</p>
+            </details>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="actions">
+          <button type="button" class="btn" id="ver-mais-btn">Ver mais</button>
+        </div>
+      </main>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const cards = Array.from(document.querySelectorAll('#temas-cards-grid .card'));
+        const verMaisBtn = document.getElementById('ver-mais-btn');
+        const pageSize = 4;
+        let visibleCount = pageSize;
+
+        function renderCards() {
+          cards.forEach((card, index) => {
+            card.style.display = index < visibleCount ? '' : 'none';
+          });
+
+          if (!verMaisBtn) return;
+          if (visibleCount >= cards.length) {
+            verMaisBtn.style.display = 'none';
+          } else {
+            verMaisBtn.style.display = 'inline-block';
+          }
+        }
+
+        if (verMaisBtn) {
+          verMaisBtn.addEventListener('click', () => {
+            visibleCount += pageSize;
+            renderCards();
+          });
+        }
+
+        renderCards();
+      });
+    </script>
+  </body>
+</html>

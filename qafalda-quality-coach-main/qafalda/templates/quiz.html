@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quiz — QAfalda</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="page quiz-page">
+      <header class="hero">
+        <div>
+          <h1>Quiz da QAfalda</h1>
+          <p>Vamos testar seus conhecimentos sobre qualidade de software? É só escolher a resposta certa!</p>
+        </div>
+        <nav class="nav-links">
+          <a href="/" class="nav-link">Cronograma</a>
+          <a href="/temas" class="nav-link">Temas</a>
+          <a href="/dicas" class="nav-link">Dicas</a>
+          <a href="/quiz" class="nav-link">Quiz</a>
+        </nav>
+      </header>
+      <main>
+        <section class="chat-card">
+          {% if feedback %}
+          <div class="bubble bot">
+            <img src="{{ url_for('static', filename='images/mafalda.jpg') }}" alt="Mafalda" class="bubble-avatar" />
+            <div>
+              <p>{{ feedback }}</p>
+            </div>
+          </div>
+          <div class="actions">
+            <a href="/quiz" class="btn">Próxima pergunta</a>
+            <a href="/dicas" class="btn">Ver dica</a>
+          </div>
+          {% else %}
+          <div class="bubble bot">
+            <img src="{{ url_for('static', filename='images/mafalda.jpg') }}" alt="Mafalda" class="bubble-avatar" />
+            <div>
+              <p>{{ question }}</p>
+            </div>
+          </div>
+          <form method="post" class="quiz-form">
+            <input type="hidden" name="question" value="{{ question }}" />
+            <input type="hidden" name="correct" value="{{ correct }}" />
+            {% for option in options %}
+            <label class="option">
+              <input type="radio" name="answer" value="{{ option }}" required />
+              {{ option }}
+            </label>
+            {% endfor %}
+            <button type="submit" class="btn">Responder</button>
+          </form>
+          {% endif %}
+        </section>
+      </main>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const avatarSrc = "{{ url_for('static', filename='images/mafalda.jpg') }}";
+        document.querySelectorAll('.bubble.bot').forEach((bubble) => {
+          const label = bubble.querySelector('strong');
+          if (label && (label.textContent || '').trim().toLowerCase() === 'qafalda') {
+            label.remove();
+          }
+
+          const hasAvatar = bubble.querySelector('.bubble-avatar');
+          if (!hasAvatar) {
+            const img = document.createElement('img');
+            img.src = avatarSrc;
+            img.alt = 'Mafalda';
+            img.className = 'bubble-avatar';
+            bubble.prepend(img);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

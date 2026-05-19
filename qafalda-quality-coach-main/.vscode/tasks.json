@@ -1,0 +1,16 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run QAfalda Web",
+			"type": "shell",
+			"command": "${workspaceFolder}\\start_web.bat",
+			"isBackground": true
+		},
+		{
+			"label": "Stop QAfalda Web",
+			"type": "shell",
+			"command": "${workspaceFolder}\\stop_web.bat"
+		}
+	]
+}

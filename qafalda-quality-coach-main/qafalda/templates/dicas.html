@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dicas do Dia — QAfalda</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <div>
+          <h1>Dica do Dia da QAfalda</h1>
+          <p>Uma dica inspiradora sobre qualidade de teste para você se motivar!</p>
+        </div>
+        <nav class="nav-links">
+          <a href="/" class="nav-link">Cronograma</a>
+          <a href="/temas" class="nav-link">Temas</a>
+          <a href="/dicas" class="nav-link">Dicas</a>
+          <a href="/quiz" class="nav-link">Quiz</a>
+        </nav>
+      </header>
+      <main>
+        <section class="chat-card">
+          <div class="bubble bot">
+            <img src="{{ url_for('static', filename='images/mafalda.jpg') }}" alt="Mafalda" class="bubble-avatar" />
+            <div>
+              <p>{{ dica.question }}</p>
+              <p>{{ dica.answer }}</p>
+            </div>
+          </div>
+          <div class="actions">
+            <a href="/dicas" class="btn">Nova dica</a>
+            <a href="/quiz" class="btn">Fazer quiz</a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

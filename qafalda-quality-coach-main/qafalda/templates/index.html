@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>QAfalda — Cronograma CTFL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <div>
+          <h1>QAfalda</h1>
+          <p>Organizo seus estudos para o CTFL, praticamos questões juntos e aprimoramos sua forma de estudar.</p>
+        </div>
+        <img src="{{ url_for('static', filename='images/mafalda.jpg') }}" alt="Mafalda" class="mafalda-image" />
+        <nav class="nav-links">
+          <a href="/" class="nav-link">Cronograma</a>
+          <a href="/temas" class="nav-link">Temas</a>
+          <a href="/dicas" class="nav-link">Dicas</a>
+          <a href="/quiz" class="nav-link">Quiz</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="chat-card">
+          <h2>Monte seu cronograma</h2>
+          <form method="post" class="study-form">
+            <div class="study-grid">
+              <label>
+                Semanas
+                <input type="number" class="prompt-input" name="weeks" min="2" max="16" value="{{ form.weeks }}" />
+              </label>
+              <label>
+                Horas por semana
+                <input type="number" class="prompt-input" name="hours_per_week" min="2" max="20" value="{{ form.hours_per_week }}" />
+              </label>
+              <label>
+                Nível
+                <select name="level" class="prompt-input">
+                  <option value="iniciante" {% if form.level == 'iniciante' %}selected{% endif %}>Iniciante</option>
+                  <option value="intermediario" {% if form.level == 'intermediario' %}selected{% endif %}>Intermediário</option>
+                  <option value="avancado" {% if form.level == 'avancado' %}selected{% endif %}>Avançado</option>
+                </select>
+              </label>
+            </div>
+
+            <p><strong>Assuntos do syllabus CTFL</strong></p>
+            <div class="topic-list">
+              {% for topic in suggestions %}
+              <label class="topic-chip checkbox-chip">
+                <input type="checkbox" name="topics" value="{{ topic }}" {% if topic in form.topics %}checked{% endif %} />
+                {{ topic }}
+              </label>
+              {% endfor %}
+            </div>
+
+            <div class="actions">
+              <button type="submit" class="btn">Gerar cronograma</button>
+            </div>
+          </form>
+        </section>
+
+        {% if plan %}
+        <section class="chat-card" style="margin-top: 24px;">
+          <h2>Plano semanal</h2>
+          <div class="cards-grid">
+            {% for week in plan %}
+            <div class="card">
+              <h3>Semana {{ week.week }} · {{ week.hours }}h</h3>
+              <p><strong>Temas:</strong> {{ week.topics | join(', ') }}</p>
+              <ul>
+                {% for activity in week.activities %}
+                <li>{{ activity }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+            {% endfor %}
+          </div>
+        </section>
+        {% endif %}
+      </main>
+    </div>
+  </body>
+</html>
